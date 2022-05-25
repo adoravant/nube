@@ -1,0 +1,41 @@
+<a onclick="getTab()" class="waves-effect waves-light btn modal-trigger" href="#share{{p.id}}"><i class="material-icons">share</i></a>
+<!-- Modal Structure share_pedidos-->
+<div style="width:550px; height:210px; border-radius:5px" id="share{{p.id}}" class="modal">
+  <div  class="modal-content">
+    <h4 style="font-family: nunito"><b>Comparte tu pedido</b></h4>
+    <form action="{% url 'pedidos:add_me_pedido' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+
+      <input type="hidden" name="id" value={{p.id}}>
+      <input type="hidden" name="ip" value="{{client_ip}}">
+      <input class="input_tab" type="hidden" name="tab">  
+      <p style="color:gray">{{p.titulo}}, {{p.autor}}</p>
+      <hr>
+        
+      <div style=" margin-left: 10px; margin-bottom: -5; z-index: 900000000">
+
+        <span style="" class="icons">
+          <a target="_blank" class="fa" href="https://www.facebook.com/sharer/sharer.php?u=https://libronube.com/pedidos-completados-recientes/">
+          <img style="width: 25px" src="/static/img/facebook.svg"></a>
+        </span>
+        <span style="" class="icons">
+          <script
+          type="text/javascript"
+          async defer
+          src="//assets.pinterest.com/js/pinit.js"
+          ></script>
+          <a class="fa"style="color: #e60023;" href="https://www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark" data-pin-round=true data-pin-hover=true data-pin-custom=true>
+          <img style="width: 65px; margin-left: -10px" src="/static/img/telegram.svg"></a>
+        </span>
+        <span class="icons">
+          <a class="fa" href="https://twitter.com/share?ref_src='https://libronube.com/pedidos-completados-recientes'" class="fa twitter-share-button" data-show-count="false"><img style="width: 26px;" src="/static/img/twitter.svg"></a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </span>
+        <span class="icons">  
+          <a class=fa href="https://wa.me/?text=www.libronube.com/pedidos-completados-recientes/">
+          <img style="width:78px; margin-top: 5px; margin-left:-20px; padding-bottom: 4px;"  src="/static/img/whatsapp.svg">
+          </a> 
+        </span>
+      </div>
+    </form>
+  </div>
+
+</div> 

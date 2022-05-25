@@ -1,0 +1,103 @@
+<!-- comienza pedidos completados div, NECESITO ARREGLAR EL MIN WIDTH DE TD Y EL BOTTON EN MIN WIDTH SUFICIENTE -->
+<div id="mis_pedidos" class="col s12">
+ <table class="table-sm table-bordered">
+
+  <thead>
+    <tr>
+       <th  onclick="window.location = 'https://libronube.com/mis-pedidos-recientes/'" class="header_fecha" scope="col">Fecha <i style="" class="material-icons x">expand_more </i></th>
+      <th  onclick="window.location = 'https://libronube.com/mis-pedidos-titulo/'" class="header_titulo" scope="col">Título <i style="" class="material-icons x">expand_more </i></th>
+      <th onclick="window.location = 'https://libronube.com/mis-pedidos-autor/'" class="header_autor" scope="col">Autor <i style="" class="material-icons x">expand_more </i></th>
+      <th onclick="window.location = 'https://libronube.com/mis-pedidos-likes/'" class="header_likes" scope="col">Likes <i style="" class="material-icons x">expand_more </i></th> 
+    </tr>
+  </thead>
+  <tbody>
+    
+    {% for p in pedidos %}
+          <td class="fecha_table_row">
+          
+  
+  <!-- CHECKED COMPLETED -->  
+  {% if p.completed == False %} 
+   <a  class="waves-effect waves-light btn modal-trigger" href="#complete_{{p.id}}"><i class="material-icons">upload</i></a>
+  <!-- Modal Structure -->
+  <div style="width:550px; height:220px; border-radius:5px" id="complete_{{p.id}}" class="modal">
+    <div  class="modal-content">
+      <h4 style="font-family: nunito">Enviar pedido:</h4>
+      <form class="form-group" action="{% url 'pedidos:complete_pedido' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+
+
+   <label for="pdf">{{p.titulo}}, {{p.autor}}<input id="id_docfile" type="file" name="docfile"  required style="margin-top: 20px; margin-left: 20"></label>
+   <input type="hidden" name="id" value={{p.id}}>
+   <input type="hidden" name="completed_by" value={{client_ip}}>
+  <button style="margin-top: 20px" type="submit" class="btn btn-info">ENVIAR</button>
+
+  
+  
+</form>
+    </div>
+
+  </div> 
+
+  <!--  modal email -->
+{% if pedidos_search_view == True %}
+  {% include "pedidos/buttons/add_me_button.html" %}
+  {% else %}
+  {% include "pedidos/buttons/share_button.html" %}
+  {% endif %}
+{% else %}
+  {% include "pedidos/buttons/check_button.html" %}
+  {% include "pedidos/buttons/download_button.html" %}
+
+{% endif %}
+
+</td>   
+<td class="titulo_table_row" > <b>{{p.titulo}}</b></td>
+<td  class="autor_table_row"> <b>{{p.autor}}{% include "pedidos/buttons/info_button.html" %}</b></td>
+
+<td class="likes_table_row">{% include "pedidos/update_votes.html" %}</td>
+</div>        
+
+
+
+</td>
+</tr>
+
+    {% endfor %}
+  </tbody>
+</table>
+<!-- termina pedidos abiertos div -->
+</div>
+<script>
+
+
+
+function getTab(){
+    var cerrado = document.getElementById("tab_cerrado");
+    var tab_cerrado = cerrado.className;
+    var abierto = document.getElementById("tab_abierto");
+    var tab_abierto = abierto.className;
+    
+    if (tab_abierto == "active") {
+      
+
+      var tab = "abierto"
+    
+    } else {
+      
+      var tab = "cerrado"
+    }
+
+    var x = document.getElementsByClassName("input_tab")
+    
+    for (var i=0; i < x.length; i++) { 
+    x[i].value = tab;
+    console.log(x)
+    console.log(x[i])
+    console.log(tab)
+    }
+    
+}
+
+
+
+</script>

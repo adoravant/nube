@@ -1,0 +1,27 @@
+
+
+<style>
+  .update-cart {
+  cursor: pointer;
+
+}
+
+.vote-down:hover {
+  color:#E57373!important;
+}
+.vote-up:hover {
+  color:#69A157!important;
+}
+</style>
+<div>
+  <span>
+    <i   data-product="{{ p.id }}" data-action="remove" style="color:#dedede; display:inline" class="material-icons update-cart vote-down">thumb_down</i>
+    <i  data-product="{{ p.id }}" data-action="add" style="color:#dedede" class="material-icons update-cart vote-up">thumb_up</i>
+  
+  
+  </span>
+  <span style="color:black; font-size:12px!important"><b style=" font-size:9.5px; {% if p.votos < 0 %} color:red; {% else %} color:green; {% endif %}">{{p.votos}}</b></i></span>
+</div>
+
+
+

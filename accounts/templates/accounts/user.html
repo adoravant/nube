@@ -1,0 +1,48 @@
+{%  extends 'base.html' %}
+{% load static %}
+{% block user %}
+{%  include 'accounts/status.html' %}
+
+<style>
+	.sidenav li> a{
+    color: rgba(0,0,0,0.87);
+    font-size: 16px;
+    font-weight: 500;
+    padding: 0 5px;
+    margin-left:10px!important;
+}
+</style>
+
+<div class="row">
+	<div style="margin-top: 20px" class="col-md">
+		<div class="">
+
+			<table class="table table-sm">			
+
+				<tr>
+					<h2 style="font-family: 'nunito'; color:#gray; font-weight: 600; margin-left: 14px; margin-top: 10px">Para tí</h2>
+					<div style="margin-bottom:-100px">{% include "accounts/ebooks_descargas.html" %}</div>
+					
+				</tr>
+				<tr>
+					<h2 style="font-family: 'nunito'; color:#gray; font-weight: 600">Vistos</h2>
+					<div style="margin-bottom:-100px">{% include "accounts/ebooks_vistos.html" %}</div>
+					
+				</tr>
+				<tr>
+					<h2 style="font-family: 'nunito'; color:#gray; font-weight: 600">Favoritos</h2>
+					<div style="margin-bottom:-100px">{% include "accounts/ebooks_favoritos.html" %}</div>
+					
+				</tr>
+				<tr>
+					<h2 style="font-family: 'nunito'; color:#gray; font-weight: 600">Descargas</h2>
+					<div style="margin-bottom:-100px">{% include "accounts/ebooks_descargas.html" %}</div>
+					
+				</tr>
+				
+			</table>
+		</div>
+	</div>
+</div>
+
+{% endblock user %}

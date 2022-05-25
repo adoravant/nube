@@ -1,0 +1,37 @@
+
+<!-- comienza pedidos abiertos div -->
+<div id="abiertos" class="col s12">
+ <table class="table-sm table-bordered">
+
+  <thead>
+    <tr>
+      <th style="cursor:pointer" onclick="window.location = 'https://libronube.com/pedidos-abiertos-recientes/'" class="header_fecha" scope="col">Fecha <i style="" class="material-icons x">expand_more </i></th>
+      <th style="cursor:pointer" onclick="window.location = 'https://libronube.com/pedidos-abiertos-titulo/'" class="header_titulo" scope="col">Título <i style="" class="material-icons x">expand_more </i></th>
+      <th style="cursor:pointer" onclick="window.location = 'https://libronube.com/pedidos-abiertos-autor/'" class="header_autor" scope="col">Autor <i style="" class="material-icons x">expand_more </i></th>
+ 
+        <th style="cursor:pointer" onclick="window.location = 'https://libronube.com/pedidos-abiertos-likes/'" class="header_likes" scope="col">Likes <i style="" class="material-icons x">expand_more </i></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in pedidos %}
+      {% if p.completed == False %}
+        <tr>
+        	<td class="fecha_table_row">
+                
+              {% include "pedidos/buttons/complete_button.html" %}  
+              </div>
+          
+              {% include "pedidos/buttons/add_me_button.html" %}
+              </div>        
+           </td>
+          
+           <td class="titulo_table_row" > <b>{{p.titulo}}</b></td>
+           <td  class="autor_table_row"> <b>{{p.autor}}{% include "pedidos/buttons/info_button.html" %}</b></td>
+           <td class="likes_table_row">{% include "pedidos/update_votes.html" %}</td>
+        </tr>
+      {% endif %}
+    {% endfor %}
+  </tbody>
+ </table>
+</div>
+

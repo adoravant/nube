@@ -1,0 +1,106 @@
+
+
+<style>
+  .popover {z-index: 9999999999999;}
+</style>
+<div style="margin-top: 20px; margin-bottom: 150px; " class="row"; >
+{% for e in liked %}
+      
+      <div  style="padding-left: 20px; position: relative; margin-bottom:-50px;" id="ebooks" class="col-lg-3-md-4-sm-6-xs-6 ebookitem">
+
+            <div id="icons1" style="position: relative; z-index: 999999999999999999999999990000000000000000000000!important; margin-left: 22px; margin-bottom: 0; position: relative; top:250px; height: 30px; display:">
+
+
+
+                    <span  style="margin-left:10px" class="icons">
+                                <a target="_blank" class="fa" href="https://www.facebook.com/sharer/sharer.php?u=www.libronube.com{% url 'main:ebook_detail_view' e.slug e.autor_slug e.id %}">
+                                <img style="width: 25px" src="/static/img/facebook.svg"></a>
+                            </span>
+                            <span style="" class="icons">
+                                <script
+                                  type="text/javascript"
+                                  async defer
+                                  src="//assets.pinterest.com/js/pinit.js"
+                                ></script>
+                                <a target="_blank" class="fa"style="color: #e60023;" href="https://www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark" data-pin-round=true data-pin-hover=true data-pin-custom=true>
+                                <img style="width: 26px;" src="/static/img/pinterest.svg"></a>
+                            </span>
+                            <span class="icons">
+                              <a style="z-index: 99999999999999999999999999999999999999999" target="_blank"class="fa" href="https://twitter.com/share?ref_src='www.libronube.com{% url 'main:ebook_detail_view' e.slug e.autor_slug e.id %}'" class="fa twitter-share-button" data-show-count="false"><img style="width: 26px;" src="/static/img/twitter.svg"></a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>                           
+             
+                            </span>
+                            <span class="icons">  
+                          <a target="_blank"class=fa href="https://wa.me/?text=www.libronube.com{% url 'main:ebook_detail_view' e.slug e.autor_slug e.id %}">
+                          <img style="width: 28px; margin-top: 5px;padding-bottom: 4px;"  src="/static/img/whatsapp.png">
+                        </a> 
+                            </span>      
+
+
+
+        </div>
+        <span  style="text-align: center; margin-bottom: 3px; font-family: nunito; color: #537ba2; "><h1 style=" font-size: 16px; background-color: #f1f1f1;  "><b>{{e.titulo | truncatechars:25}}</b></h1></span>     
+        <a href="{% url 'main:ebook_detail_view' e.slug e.autor_slug e.id %}">
+         <div class="ebook-wrapper">
+             
+             <div class="img-wrapper">
+                
+                 <p><img style="z-index:0" class="tapa" src={{e.ilink}}></a></p>    
+               
+
+                 
+            <div class="middle">
+              
+              <a style="width: 100% height: 100%" tabindex="1" data-html="true" role="button" data-toggle="popover" data-trigger="focus" title="{{e.titulo}} /  <a href='{% url 'main:libros_autor_view' e.autor_slug %}'>{{e.autor}}</a> / {{e.publicado}} /  <a href='{% url 'main:genero_list_view' e.genero %}'>{{e.genero}}</a>" data-content="{{e.sinopsis}}" data-placement="bottom" data-template='<div class="popover" role="tooltip" >
+                                                  <div class="arrow">
+                                                     
+                                                  </div>
+
+                                                  <h1 class="popover-header">
+                                                  
+                                                  </h1>
+                                                  <div class="body-wrapper">
+                                                    <div class="popover-body">
+                                                      >div>AAAAAAAAA</>
+                                                    </div>  
+                                                  </div>
+                                             </div>'>
+                
+                  
+
+                  <div style="width: 100%; height: 45px; min-width:100px; text-align: center; font-family: nunito; line-height:1.8" class="
+
+                  btn btn-info">
+                  
+                                           
+
+                   <b style="line-height:1.8">Sinopsis</b>
+                  
+                  </div>
+                  </a>   
+               <a href="{% url 'main:ebook_detail_view' e.slug e.autor_slug e.id %}">
+              <!-- <a href={{e.pdffile.url}}> -->
+                <div style=" width: 100%; height: 45px; text-align: center; font-family: nunito;" class="btn btn-danger">
+                  <b style="line-height:2.3">VER</b>
+                </div>
+
+              </a>
+              
+            </div>
+            <div>
+<!--               {% if home %}
+              {% if forloop.last %}
+          <a style="display:block; margin-left:70px; margin-top: -20px" href="{% url 'main:tag_list_view' 'más leidos' %}"><b>VER TODOS <br><i class="material-icons">add</i>
+                  
+              {% endif %}
+              {% endif %} -->
+
+            </div>  
+       </div>
+
+ </div>
+
+</div>
+
+
+
+{% endfor %}

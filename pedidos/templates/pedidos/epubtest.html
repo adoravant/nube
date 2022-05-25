@@ -1,0 +1,12 @@
+<div class="container">
+	<div style="display:grid; grid-template-columns: 1fr 1fr 1fr 1fr" class="row">
+		{% for p in ebooks %}
+		<div class="col-4 card">
+			<p>{{p.titulo}}</p>
+			<p>{{p.autor}}</p>
+			<img style="height:280; width:200px" src={{p.ilink.url}}>
+			<p><a href="/media/{{p.pdffile}}">{{p.pdffile}}</a></p>
+		</div>
+		{% endfor %}
+	</div>
+</div>

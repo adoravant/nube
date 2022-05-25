@@ -1,0 +1,43 @@
+{% if user.username == "abrahan" %}
+  <span style="float:right"><a href="/delete-{{p.id}}" class="waves-effect waves-light btn"><i class="material-icons">close</i></a></span>
+  <span style="float:right">
+  <a href="#info{{p.id}}" class="waves-effect waves-light btn modal-trigger">
+  <i class="material-icons">
+  {% if p.customer %}
+    person_pin
+  {% elif p.ebook_ip %} 
+    live_help 
+  {% else %} 
+    do_not_disturb_alt 
+  {% endif %}
+  </i></a></span>
+
+
+
+  
+  <div style="width:550px; height:220px; border-radius:5px" id="info{{p.id}}" class="modal">
+  <div  class="modal-content">
+  <h4 style="font-family: nunito">Info de pedido:</h4>
+  {% if p.customer %}
+  <span style="color:blue">name: {{p.customer.name}}</span>
+  <span>money: {{p.customer.daydownloads}}</span>
+  <span>pedidos: {{p.customer.pedidos}}</span>
+  <span>downloads: {{p.customer.downloads}}</span>
+  <span>created: {{p.customer.date_created}}</span>
+  <span>lastdownload: {{p.customer.lastdownload}}</span>
+  {% elif p.client_ip %}
+  <span style="color:red">ip: {{p.client_ip.ip}}</span>
+  <span>money: {{p.client_ip.daydownloads}}</span>
+  <span>pedidos: {{p.client_ip.pedidos}}</span>
+  <span>downloads: {{p.client_ip.downloads}}</span>
+  <span>created: {{p.client_ip.created}}</span>
+  <span>lastdownload: {{p.client_ip.lastdownload}}</span>
+  {% else %}
+  {% endif %}
+  </div>
+  </div>  
+  
+
+{% endif %}
+
+

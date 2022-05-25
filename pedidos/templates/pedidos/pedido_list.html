@@ -1,0 +1,298 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block pedidos_list %}
+<style>
+.x {
+  font-size:20px; position:relative; top:5px; float:right;
+  }
+
+.likes_table_row {
+  width:105px!important;
+ }
+
+
+.titulo_table_row {
+  font-weight: 475; font-family: nunito; color:#212529; letter-spacing: 0.5px;
+  max-width:330px!important;
+}
+
+.autor_table_row {
+  font-weight: 475; font-family: nunito; color:#212529; letter-spacing: 0.5px;
+  max-width:330px!important;
+}
+
+.fecha_table_row{
+ width:105px!important;
+ 
+}
+
+</style>
+
+{% include "pedidos/modal_make_pedido.html" %}
+<div style="width:85%" class="container">
+
+
+  <div style="margin-top:100px" class="row">
+  <div class="col"><h1 style="font-family: nunito; color:#537ba2; margin-bottom:20px"><b>Pedidos</b></h1></div></h1>
+  <div class="col-lg-4">
+    <form method="GET" action="{% url 'pedidos:pedidos_search_view' %}"> 
+      <div class="input-field col 12">
+        <i class="material-icons prefix">search</i>
+        <input style="min-width:260px" type="text" id="autocomplete-input" required name="q" type="search" value="{{request.GET.q}}" class="autocomplete">
+        <label for="autocomplete-input">Buscar</label>
+    </form>    
+      </div>
+  </div>  
+  <br>
+  <div class="col-10">
+    <div style="float:left; margin-right:30px">
+    <a href="#make_pedido" style="background-color: #537ba2; position: relative; right: 0px; margin-bottom:13px; height:40px; width:40px" class="btn-floating grey lighten-3 modal-trigger"><i style="font-size: 30px; color:orange; margin-top:0px;" class="large material-icons">add</i></a><span style="color:#537ba2"> </span><b style="color:gray"><i style="letter-spacing: 1px">NUEVO</i></b></b></span>
+  <span></span>
+  </div>
+    <div class="nav-content" style="float:left; margin-bottom: 10px">
+      <ul class="tabs">
+        {% if tab == 'abiertos' %}
+        <li class="tab tab_me">
+          <a id="tab_abierto" href="#abiertos" class="active tab_me"> <b>ABIERTOS</b>
+          </a>
+        </li>
+        <li class="tab">
+          <a target="_self" id="tab_cerrado" href="{% url 'pedidos:cerrados_list_view' order %}" class=tab_me><b style="color:#66bb6a">LISTOS</b>
+          </a>
+        </li>
+        <li class="tab">
+          <a target="_self" id="tab_cerrado" href="{% url 'pedidos:mis_pedidos_list_view' order %}" class=tab_me><b style="color:#537ba2">MIS PEDIDOS</b>
+          </a>
+        </li>
+        {% elif tab == "cerrados" %}
+         <li class="tab tab_me">
+          <a  target="_self" id="tab_abierto" href="{% url 'pedidos:abiertos_list_view' order %}" class="tab_me"> <b>ABIERTOS</b>
+          </a>
+        </li>
+        <li class="tab ">
+          <a  id="tab_cerrado" href="#cerrados" class="active tab_me"><b style="color:#66bb6a">LISTOS</b>
+          </a> 
+        </li>
+        <li class="tab">
+          <a target="_self" id="tab_mis_pedidos" href="{% url 'pedidos:mis_pedidos_list_view' order %}" class=tab_me><b style="color:#537ba2">MIS PEDIDOS</b>
+          </a>
+        </li>
+        {% else %}
+        <li class="tab tab_me">
+          <a  target="_self" id="tab_abierto" href="{% url 'pedidos:abiertos_list_view' order %}" class="tab_me"> <b>ABIERTOS</b>
+          </a>
+        </li>
+        <li class="tab ">
+          <a target="_self" id="tab_cerrado" href="{% url 'pedidos:cerrados_list_view' order %}" class="tab_me"><b style="color:#66bb6a">LISTOS</b>
+          </a> 
+        </li>
+        <li class="tab">
+          <a id="tab_mis_pedidos" target="_self" href="{% url 'pedidos:mis_pedidos_list_view' order %}" class="active tab_me"><b style="color:#537ba2">MIS PEDIDOS</b>
+          </a>
+        </li>
+        {% endif %}
+       
+
+      </ul>
+      
+    </div> 
+
+<!-- endcol10 -->
+
+  
+
+     
+
+
+</div>
+
+
+
+{% if tab == 'abiertos' %}
+{% include "pedidos/pedidos_abiertos_list.html" %}
+{% elif tab == 'cerrados' %}
+{% include "pedidos/pedidos_cerrados_list.html" %}
+
+{% else %}
+{% include "pedidos/mis_pedidos_list.html" %}
+{% endif %}
+</div>
+
+{% if not pedidos %}
+<div class="row">
+<div class="col-12">
+<p style="display:block!important; font-family: nunito, letter-spacing:1px">No se encontraron resultados para <b style="color:#537ba2">'<b>{{query1}}'</b></b>, crea uno nuevo...</p>
+<h6></h6>
+</div>
+</div>
+{% endif %}
+
+
+
+
+ <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems, options);
+  });
+  M.AutoInit();
+
+
+ function getTab(){
+    var cerrado = document.getElementById("tab_cerrado");
+    var tab_cerrado = cerrado.className;
+    var abierto = document.getElementById("tab_abierto");
+    var tab_abierto = abierto.className;
+    
+    if (tab_abierto == "active") {
+      
+
+      var tab = "abierto"
+    
+    } else {
+      
+      var tab = "cerrado"
+    }
+
+    var x = document.getElementsByClassName("input_tab")
+    
+    for (var i=0; i < x.length; i++) { 
+    x[i].value = tab;
+
+    }
+    return tab;
+  
+}
+
+
+
+ 
+ var user = '{{request.user}}'
+
+    function getToken(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var csrftoken = getToken('csrftoken')
+
+    function getCookie(name) {
+        // Split cookie string and get all individual name=value pairs in an array
+        var cookieArr = document.cookie.split(";");
+
+        // Loop through the array elements
+        for(var i = 0; i < cookieArr.length; i++) {
+            var cookiePair = cookieArr[i].split("=");
+
+            /* Removing whitespace at the beginning of the cookie name
+            and compare it with the given string */
+            if(name == cookiePair[0].trim()) {
+                // Decode the cookie value and return
+                return decodeURIComponent(cookiePair[1]);
+            }
+        }
+
+        // Return null if not found
+        return null;
+    }
+    var cart = JSON.parse(getCookie('cart'))
+
+    if (cart == undefined){
+      cart = {}
+      console.log('Cart Created!', cart)
+      document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+    }
+    console.log('Cart:', cart)
+
+
+
+var updateBtns = document.getElementsByClassName("update-cart")
+
+
+
+
+for (var i = 0; i < updateBtns.length; i++) {
+  updateBtns[i].addEventListener('click', function(){
+    var productId = this.dataset.product
+    var action = this.dataset.action
+   
+    console.log(productId, action) 
+    updateUserOrder(productId, action)
+
+  })
+
+}
+
+function addCookieItem(productId, action) {
+  if(action == 'add'){
+    if (cart[productId] == undefined) {
+      cart[productId] = {'quantity' : 1}
+
+    } else {
+      cart[productId]['quantity'] += 1  
+  }
+    
+  }
+
+  if(action == 'remove'){
+    cart[productId]['quantity'] -= 1
+
+    if(cart[productId]['quantity'] <= 0){
+      console.log("Remove Item")
+      delete cart[productId]
+
+    }
+
+  }
+  console.log("Cart:", cart)
+  document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+  location.reload()
+}
+
+function updateUserOrder(productId, action){
+  console.log("Usuario conectado, enviando datos")
+  var url = '/pedidos/votar/'
+  var tab = getTab();
+  fetch(url, {
+    method: 'POST',
+    headers : {
+      'Content-Type' : 'application.json',
+      'X-CSRFToken' : csrftoken,
+    },
+    body: JSON.stringify({'productId' : productId, 'action': action, 'tab':tab})
+  })
+
+  .then((response) => {
+    console.log(response.text)
+    return response.text()
+    
+
+  })
+
+  .then((data) => { 
+    location.reload( true )
+    
+    
+  })  
+
+}
+
+
+</script> 
+{% endblock %}
+
+
+
+

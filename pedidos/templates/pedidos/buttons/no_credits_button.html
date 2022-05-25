@@ -1,0 +1,24 @@
+<!--  check button -->
+<a class="modal-trigger waves-effect waves-light btn {% if p.checked == True or user.is_authenticated == False or p.ebook_id != None %} {% endif %}" href="#no_credits"><i class="material-icons">cloud_download</i></a>
+  
+  <!-- Modal Structure -->
+  <div style="width:550px; height:240px; border-radius:5px" id="no_credits" class="modal">
+    <div  class="modal-content">
+          <h4 style="font-family: nunito"><b>1 token</b> para descargar:</h4>
+      
+
+       <input type="hidden" name="id" value={{p.id}}>
+       <input class="input_tab" type="hidden" name="tab">  
+       <label  for="doc">¿ Como obtengo <b>más tokens ?</b>
+        <br>
+        <br>
+        <p><i style="color:#66bb6a" class="material-icons">looks_one</i> Completa un pedido abierto > <b style="color:gray"> 2 tokens.</b></p>
+       <p><i style="color:#537ba2!important" class="material-icons">looks_two</i> Crea una cuenta de sponsor > <b style="color:gray"> tokens ilimitados. </b></p>
+      <button onclick="document.location.href = '/donate/9'" class="btn btn-info" name="confirm">Crear cuenta</button>
+     <button style="border:2px solid" class="btn btn-outline-success modal-close" type="submit" name="confirm">VOLVER A PEDIDOS</button>
+      
+   
+    
+  </div>
+
+</div> 

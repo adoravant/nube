@@ -1,0 +1,80 @@
+
+<!-- comienza pedidos abiertos div -->
+<div id="abiertos" class="col s12">
+ <table class="table-sm table-bordered">
+
+  <thead>
+    <tr>
+      <th style="cursor:pointer" onclick="window.location = 'http://localhost:8000/pedidos-abiertos-likes/'" scope="col">Likes <i style="" class="material-icons x">expand_more </i></th>
+      <th style="cursor:pointer" onclick="window.location = 'http://localhost:8000/pedidos-abiertos-titulo/'" scope="col">Titulo <i style="" class="material-icons x">expand_more </i></th>
+      <th style="cursor:pointer" onclick="window.location = 'http://localhost:8000/pedidos-abiertos-autor/'" scope="col">Autor <i style="" class="material-icons x">expand_more </i></th>
+        <th style="cursor:pointer" onclick="window.location = 'http://localhost:8000/pedidos-abiertos-recientes/'" scope="col">Fecha <i style="" class="material-icons x">expand_more </i></th>
+    </tr>
+  </thead>
+  <tbody>
+    
+
+
+    
+    
+    {% for p in pidio %}
+    <tr>
+      <td>{% include "pedidos/update_votes.html" %}</td>
+      <td style="font-weight: 475; font-family: nunito; color:#212529; letter-spacing: 0.5px"> <b>{{p.titulo}}</b></td>
+      <td style="font-weight: 475; font-family: nunito; color:#212529; letter-spacing: 0.5px"> <b>{{p.autor}}</b></td>
+      <td>
+          <!-- Modal Trigger -->
+  
+     
+  <a  class="waves-effect waves-light btn modal-trigger" href="#complete_{{p.id}}"><i class="material-icons">upload</i></a>
+  <!-- Modal Structure -->
+  <div style="width:550px; height:220px; border-radius:5px" id="complete_{{p.id}}" class="modal">
+    <div  class="modal-content">
+      <h4 style="font-family: nunito">Enviar pedido:</h4>
+      <form class="form-group" action="{% url 'pedidos:complete_pedido' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+
+
+   <label for="pdf">{{p.titulo}}, {{p.autor}}<input id="id_docfile" type="file" name="docfile"  required style="margin-top: 20px; margin-left: 20"></label>
+   <input type="hidden" name="id" value={{p.id}}>
+   <input type="hidden" name="completed_by" value={{client_ip}}>
+  <button style="margin-top: 20px" type="submit" class="btn btn-info">ENVIAR</button>
+
+  
+  
+</form>
+    </div>
+
+  </div>  
+          </div>
+           <!--  modal email -->
+
+  <a class="waves-effect waves-light btn modal-trigger" href="#add_me_{{p.id}}"><i class="material-icons">contact_mail</i></a>
+
+  <!-- Modal Structure -->
+  <div style="width:550px; height:220px; border-radius:5px" id="add_me_{{p.id}}" class="modal">
+    <div  class="modal-content">
+      <h4 style="font-family: nunito">Recibe cuando esté disponible.</h4>
+  <form action="{% url 'pedidos:add_me_pedido' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+
+   <input type="hidden" name="id" value={{p.id}}>
+   <input type="hidden" name="ip" value={{client_ip}}>
+   <input class="input_tab" type="hidden" name="tab">   
+   
+   <label  for="doc">{{p.titulo}}, {{p.autor}}<input style="margin-top:20px" type="email" placeholder="Dirección de correo electrónico.." name="also_wants" {% if email != "vacio" %} value={{email}} {% endif %}></label>
+   <br> 
+  <button type="submit" class="btn btn-info">ENVIAR</button>
+</form>
+    </div>
+
+  </div> 
+          </div>        
+
+
+    
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+    </div>
+<!-- termina pedidos abiertos div -->

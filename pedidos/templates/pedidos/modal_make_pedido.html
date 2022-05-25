@@ -1,0 +1,19 @@
+  <!-- Modal Structure -->
+  <div style="width:550px; height:280px; border-radius:5px" id="make_pedido" class="modal">
+    <div  class="modal-content">
+      <h4 style="font-family: nunito">Crear un pedido</h4>
+
+<form action="{% url 'pedidos:make_pedido' %}" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+
+  <input type="text" placeholder="Título" name="titulo">
+  <input type="text" placeholder="Autor" name="autor">
+  {% if email == "vacio" %}<input class="form-control" type="email" placeholder="Dirección de correo" name="requested_by">{% else %}<input class="form-control" type="email" placeholder="Dirección de correo" name="requested_by" value="{{email}}">{% endif %}
+  <input type="hidden" name="ip" value="{{client_ip}}">
+  <input type="hidden" name="votos" {% if user.is_authenticated %} value="{{ top_vote }}" {% else %} value=0 {% endif %}>
+  <a type="submit" style="margin-top:10px" class="waves-effect waves-light  modal-trigger"><button class="btn btn-info">Enviar</button></a>
+</form>
+
+    </div>
+  
+  </div>  

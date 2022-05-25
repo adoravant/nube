@@ -1,0 +1,180 @@
+<!-- comienza pedidos completados div, NECESITO ARREGLAR EL MIN WIDTH DE TD Y EL BOTTON EN MIN WIDTH SUFICIENTE -->
+<div id="mis_pedidos" class="col s12">
+ <table class="table-sm table-bordered">
+
+  <thead>
+    <tr>
+      <th onclick="window.location = 'http://localhost:8000/mis-pedidos-likes/'" class="header_likes" scope="col">Likes <i style="" class="material-icons x">expand_more </i></th>
+      <th  onclick="window.location = 'https://libronube.com/mis-pedidos-titulo/'" class="header_titulo" scope="col">Título <i style="" class="material-icons x">expand_more </i></th>
+      <th onclick="window.location = 'https://libronube.com/mis-pedidos-autor/'" class="header_autor" scope="col">Autor <i style="" class="material-icons x">expand_more </i></th>
+        <th  onclick="window.location = 'https://libronube.com/mis-pedidos-recientes/'" class="header_fecha" scope="col">Fecha <i style="" class="material-icons x">expand_more </i></th>
+    </tr>
+  </thead>
+  <tbody>
+    
+
+
+    
+    
+       
+     <td class="likes_table_row">{% include "pedidos/update_votes.html" %}</td>
+     <td class="titulo_table_row" > <b>{{p.titulo}}</b></td>
+      <td  class="autor_table_row"> <b>{{p.autor}}</b></td>
+      <td class="fecha_table_row">
+          
+  
+  <!-- CHECKED COMPLETED -->  
+  {% if p.completed == False %} 
+   <a  class="waves-effect waves-light btn modal-trigger" href="#complete_{{p.id}}"><i class="material-icons">upload</i></a>
+  <!-- Modal Structure -->
+  <div style="width:550px; height:220px; border-radius:5px" id="complete_{{p.id}}" class="modal">
+    <div  class="modal-content">
+      <h4 style="font-family: nunito">Enviar pedido:</h4>
+      <form class="form-group" action="{% url 'pedidos:complete_pedido' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+
+
+   <label for="pdf">{{p.titulo}}, {{p.autor}}<input id="id_docfile" type="file" name="docfile"  required style="margin-top: 20px; margin-left: 20"></label>
+   <input type="hidden" name="id" value={{p.id}}>
+   <input type="hidden" name="completed_by" value={{client_ip}}>
+  <button style="margin-top: 20px" type="submit" class="btn btn-info">ENVIAR</button>
+
+  
+  
+</form>
+    </div>
+
+  </div> 
+
+  <!--  modal email -->
+  {% if pedidos_search_view == True %}
+  <a onclick="getTab()" class="waves-effect waves-light btn modal-trigger" href="#add_me_{{p.id}}"><i class="material-icons">contact_mail</i></a>
+  
+  <!-- Modal Structure add_me_pedidos-->
+  <div style="width:550px; height:220px; border-radius:5px" id="add_me_{{p.id}}" class="modal">
+    <div  class="modal-content">
+      <h4 style="font-family: nunito">También quiero recibir el libro.</h4>
+  <form action="{% url 'pedidos:add_me_pedido' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+
+   <input type="hidden" name="id" value={{p.id}}>
+   <input type="hidden" name="ip" value="{{client_ip}}">
+   <input class="input_tab" type="hidden" name="tab">  
+   <label  for="doc">{{p.titulo}}, {{p.autor}}<input style="margin-top:20px" type="email" placeholder="Dirección de correo electrónico.." name="also_wants" {% if email != "vacio" %} value={{email}} {% endif %}></label>
+  
+  <button style="max-width:75.39px!important;" type="submit" class="btn btn-info">ENVIAR</button>
+</form>
+    </div>
+
+  </div> 
+  {% else %}
+  <a onclick="getTab()" class="waves-effect waves-light btn modal-trigger" href="#share{{p.id}}"><i class="material-icons">share</i></a>
+  <!-- Modal Structure share_pedidos-->
+  <div style="width:550px; height:210px; border-radius:5px" id="share{{p.id}}" class="modal">
+    <div  class="modal-content">
+      <h4 style="font-family: nunito"><b>Comparte tu pedido</b></h4>
+  <form action="{% url 'pedidos:add_me_pedido' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+
+   <input type="hidden" name="id" value={{p.id}}>
+   <input type="hidden" name="ip" value="{{client_ip}}">
+   <input class="input_tab" type="hidden" name="tab">  
+   <p style="color:gray">{{p.titulo}}, {{p.autor}}</p>
+   <hr>
+  
+  <div style=" margin-left: 10px; margin-bottom: -5; z-index: 900000000">
+
+                        <span style="" class="icons">
+                            <a target="_blank" class="fa" href="https://www.facebook.com/sharer/sharer.php?u=https://libronube.com/pedidos?q={{p.titulo}}/">
+                            <img style="width: 25px" src="/static/img/facebook.svg"></a>
+                        </span>
+                        <span style="" class="icons">
+                            <script
+                              type="text/javascript"
+                              async defer
+                              src="//assets.pinterest.com/js/pinit.js"
+                            ></script>
+                            <a class="fa"style="color: #e60023;" href="https://www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark" data-pin-round=true data-pin-hover=true data-pin-custom=true>
+                            <img style="width: 65px; margin-left: -10px" src="/static/img/telegram.svg"></a>
+                        </span>
+                        <span class="icons">
+                          <a class="fa" href="https://twitter.com/share?ref_src='https://libronube.com/pedidos-abiertos-recientes'" class="fa twitter-share-button" data-show-count="false"><img style="width: 26px;" src="/static/img/twitter.svg"></a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>                           
+         
+                        </span>
+                        <span class="icons">  
+                      <a class=fa href="https://wa.me/?text=www.libronube.com/mis-pedidos-recientes/">
+                      <img style="width:78px; margin-top: 5px; margin-left:-20px; padding-bottom: 4px;"  src="/static/img/whatsapp.svg">
+                    </a> 
+                        </span>
+                </div>
+</form>
+    </div>
+
+  </div> 
+  {% endif %}
+
+  {% else %}
+    <!-- CHECKED COMPLETED -->   
+  <a class="modal-trigger waves-effect waves-light btn {% if p.checked == True or user.is_authenticated == False or p.ebook_id != None %} disabled {% endif %}" href="#confirm_pedido{{p.id}}"><i class="material-icons">done_all</i></a>
+  
+  <a onclick="getTab()" class="waves-effect waves-light btn" target="_blank" {% if p.pdf != "" %} href="/media/{{p.pdf}}" {% elif p.epub_url %} href="{{p.epub_url}}" {% elif p.ebook_url %} href="{{ p.ebook_url }}" {% endif %}href=""><i class="material-icons">cloud_download</i></a>
+
+
+
+  <!-- Modal Structure -->
+  <div style="width:550px; height:220px; border-radius:5px" id="confirm_pedido{{p.id}}" class="modal">
+    <div  class="modal-content">
+      <h4 style="font-family: nunito"><b>Verificación de texto adjunto:</b></h4>
+  <form action="{% url 'pedidos:confirm_pedido' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+
+   <input type="hidden" name="id" value={{p.id}}>
+   <input class="input_tab" type="hidden" name="tab">  
+   <label  for="doc">{{p.titulo}}, {{p.autor}}<hr>
+   <h4 style="margin-bottom:15px"><b style="color:#f2465edb">¿ Posee el libro correcto ?</b></h4>
+  <input style="max-width:130px" class="btn btn-info" type="submit" name="confirm" value="ES CORRECTO">
+ <input style="max-width:140px" class="btn btn-outline-danger" type="submit" name="confirm" value="HAY UN ERROR">
+  
+</form>
+<button type="button" class="btn btn-light modal-close">NO SÉ</button>
+</div>
+  {% endif %} 
+          </div>
+  </td>
+       </div>        
+      </td>
+    </tr>
+  </tbody>
+</table>
+<!-- termina pedidos abiertos div -->
+</div>
+<script>
+
+
+
+function getTab(){
+    var cerrado = document.getElementById("tab_cerrado");
+    var tab_cerrado = cerrado.className;
+    var abierto = document.getElementById("tab_abierto");
+    var tab_abierto = abierto.className;
+    
+    if (tab_abierto == "active") {
+      
+
+      var tab = "abierto"
+    
+    } else {
+      
+      var tab = "cerrado"
+    }
+
+    var x = document.getElementsByClassName("input_tab")
+    
+    for (var i=0; i < x.length; i++) { 
+    x[i].value = tab;
+    console.log(x)
+    console.log(x[i])
+    console.log(tab)
+    }
+    
+}
+
+
+
+</script>

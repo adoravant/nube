@@ -1,0 +1,16 @@
+<!--  download button -->
+
+{% if user.is_authenticated %}
+<a class="waves-effect waves-light btn" target="_blank" {% if p.pdf != "" %} href="/media/{{p.pdf}}" download onclick="getTab();" {% elif p.epub_url %} href="{{p.epub_url}}" {% elif p.ebook_url %} href="{{ p.ebook_url }}" {% endif %}><i class="material-icons">cloud_download</i></a>
+
+{% else %}
+<a class="waves-effect waves-light btn" target="_blank" {% if p.pdf != "" %} href="/media/{{p.pdf}}" onclick="getTab(); document.location.href='http://localhost:8000/update-credit-remove'"  {% elif p.epub_url %} href="{{p.epub_url}}" {% elif p.ebook_url %} href="{{ p.ebook_url }}" onclick="$(document).ready(function () {
+setTimeout(function () {
+window.location.href = 'https://libronube.com/update-credit-remove';
+}, 1);
+});" {%%} {% endif %} download><i class="material-icons">cloud_download</i></a>
+{% endif %}
+
+
+
+

@@ -1,0 +1,67 @@
+<br>
+<style>
+	.card {
+		font-family: 'nunito'!important;
+	
+
+	}
+	.card-title {
+		font-family: 'nunito'!important;
+	}
+
+
+	
+</style>
+<h4 style="margin-left: 10px; margin-top:100px">Historial</h4>
+<div  style="width:100%; background-color: #ffffff;" class="jumbotron">
+  <div style="color:gray" class="row">
+
+    <div class="col-3">
+    <a style="cursor:pointer; text-decoration: none;" onclick="M.AutoInit();" data-target="menu-responsive" class="sidenav-trigger"><i style="font-size: 35px; color: #E57373;" class="material-icons">import_contacts</i>
+    <span style="display:block"><b style="color:gray!important; ">70.000</b><h6 style="color: black; font-family: nunito" >Libros<h6></span></a>
+    </div>
+
+    <div class="col-3">
+
+    <a href="{% url 'main:autores_view' %}"><i style="font-size: 35px; color: #006064 " class="material-icons">face</i>
+    <span style="display: block"><b style="color:gray!important">10.450</b><h6 style="color: black; font-family: nunito" >Autores<h6></span></a>
+    </div>
+
+    <div class="col-3">
+    <i style="font-size: 35px; color: #ffa726" class="material-icons">live_help</i>
+    <span style="display:block"><b style="color:gray!important">Pedir</b><h6 style="color: black;font-family: nunito">Libros<h6></span>
+    </div>
+
+    <!-- <div class="col-4">
+
+    <i style="font-size: 35px; color: #E57373;" class="material-icons">upload  </i>
+    <span style="display:block"><b>Subir</b><h6 style="color: black; font-family: nunito" >Libro<h6></span>
+    </div> -->
+    <div class="col-3">
+    <a style="cursor:pointer; text-decoration: none;" href="{% url 'main:video_list' %}"><i style="font-size: 35px; color: #E57373;" class="material-icons">hearing</i>
+    <span style="display:block"><b style="color:gray">150</b><h6 style="color: black; font-family: nunito" >Audiolibros<h6></span></a>
+    </div>
+
+    <!-- <div class="col-4">
+
+    <i style="font-size: 35px; color: #006064 " class="material-icons">share</i>
+    <span style="display: block"><b>Compartir</b><h6 style="color: black; font-family: nunito" >Sitio<h6></span>
+    </div>
+    <div class="col-4">
+    <i style="font-size: 35px; color:red" class="material-icons">favorite</i>
+    <span style="display:block"><b >Seguir</b><h6 style="color: black;font-family: nunito">Redes<h6></span>
+    </div> -->
+    <div class="col-3">
+
+    <a href="{% url 'accounts:register' %}"><i style="font-size: 35px; color: #006064 " class="material-icons">group_add</i>
+    <span style="display: block"><b style="color:gray">Crear</b><h6 style="color: black; font-family: nunito" >Cuenta<h6></span></a>
+    </div>
+
+    <div class="col-3">
+    <a href="{% url 'accounts:login' %}"><i style="font-size: 35px; color: #ffa726" class="material-icons">fingerprint</i>
+    <span style="display:block"><b style="color:gray" >Login</b><h6 style="color: black;font-family: nunito">Cuenta<h6></span></a> 
+    </div>
+  </div>
+</div>
+
+

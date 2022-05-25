@@ -1,0 +1,20 @@
+<!--  complete button -->     
+  <a  class="waves-effect waves-light btn modal-trigger" href="#complete_{{p.id}}"><i class="material-icons">upload</i></a>
+  <!-- Modal Structure -->
+  <div style="width:550px; height:220px; border-radius:5px" id="complete_{{p.id}}" class="modal">
+    <div  class="modal-content">
+      <h4 style="font-family: nunito">Enviar pedido:</h4>
+      <form class="form-group" action="{% url 'pedidos:complete_pedido' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+
+
+   <label for="pdf">{{p.titulo}}, {{p.autor}}<input id="id_docfile" type="file" name="docfile"  required style="margin-top: 20px; margin-left: 20"></label>
+   <input type="hidden" name="id" value={{p.id}}>
+   <input type="hidden" name="completed_by" value={{client_ip}}>
+  <button style="margin-top: 20px" type="submit" class="btn btn-info">ENVIAR</button>
+
+  
+  
+</form>
+    </div>
+
+  </div>

@@ -1,0 +1,23 @@
+<!--  download button -->
+
+{% if user.is_authenticated %}
+<a class="waves-effect waves-light btn" target="_blank" {% if p.pdf != "" %} href="/media/{{p.pdf}}" download onclick="getTab();" {% elif p.epub %} href="{{p.epub.pdffile.url}}" {% elif p.ebook %} href="{{ p.ebook.pdf }}" {% endif %} download><i class="material-icons">cloud_download</i></a>
+
+
+{% else %} 
+        {% if p.pdf != "" %}
+	 
+	<a class="waves-effect waves-light btn" target="_blank" href="/media/{{p.pdf}}" download onclick="getTab(); document.location.href='https://libronube.com/update-credit-remove'">
+	{% elif p.epub %}
+         
+	<a class="waves-effect waves-light btn" target="_blank" href="{{p.epub.pdffile.url}}" download onclick="getTab(); document.location.href='https://libronube.com/update-credit-remove'"> 
+
+	{% elif p.ebook %} 
+	<a class="waves-effect waves-light btn" target="_blank" href="{{ p.ebook.pdf }}" 
+	onclick="$(document).ready(function () {
+	setTimeout(function () {
+	window.location.href = 'https://libronube.com/update-credit-remove';}, 1);});"> 
+	{% endif %} 
+	<i class="material-icons">cloud_download</i></a>
+{% endif %}
+
